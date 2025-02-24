@@ -18,9 +18,9 @@
         <h2>今日のアンケート</h2>
         <p id="todayTopic">お題: あなたの好きな色は？</p>
         <form id="surveyForm">
-            <label><input type="radio" name="answer" value="赤"> 赤</label>
-            <label><input type="radio" name="answer" value="青"> 青</label>
-            <label><input type="radio" name="answer" value="緑"> 緑</label>
+            <label><input type="radio" name="answer" value="選択肢1">選択肢1</label>
+            <label><input type="radio" name="answer" value="選択肢2">選択肢2</label>
+            <label><input type="radio" name="answer" value="選択肢3">選択肢3</label>
             <button type="button" onclick="submitSurvey()">送信</button>
         </form>
     </div>
@@ -33,7 +33,7 @@
                 return;
             }
 
-            let results = JSON.parse(localStorage.getItem("surveyResults")) || { "赤": 0, "青": 0, "緑": 0 };
+            let results = JSON.parse(localStorage.getItem("surveyResults")) || { "選択肢1": 0, "選択肢2": 0, "選択肢3": 0 };
             results[selectedAnswer.value]++;
 
             localStorage.setItem("surveyResults", JSON.stringify(results));
