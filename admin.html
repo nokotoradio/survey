@@ -1,24 +1,34 @@
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>アンケート結果</title>
-    <link rel="stylesheet" href="style.css">
+    <title>管理者ページ</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background-color: #f9f9f9; }
+        .container { max-width: 500px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
+        h2 { text-align: center; }
+    </style>
 </head>
-
 <body>
     <div class="container">
         <h2>アンケート結果</h2>
-        <ul>
-            <li>選択肢1: <span id="count1">0</span> 票</li>
-            <li>選択肢2: <span id="count2">0</span> 票</li>
-            <li>選択肢3: <span id="count3">0</span> 票</li>
-        </ul>
+        <ul id="resultList"></ul>
     </div>
-    <script src="script.js">
-        window.onload = function () {
+
+    <script>
+        function updateAdminPanel(results) {
+            const resultList = document.getElementById('resultList');
+            resultList.innerHTML = '';
+
+            Object.keys(results).forEach(choice => {
+                const li = document.createElement('li');
+                li.textContent = `${choice}: ${results[choice]} 票`;
+                resultList.appendChild(li);
+            });
+        }
+
+        window.onload = function() {
             let storedResults = localStorage.getItem("surveyResults");
             if (storedResults) {
                 let results = JSON.parse(storedResults);
@@ -28,8 +38,6 @@
                 console.log("管理者ページでデータが見つかりません。");
             }
         };
-
     </script>
 </body>
-
 </html>

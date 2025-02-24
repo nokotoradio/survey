@@ -3,21 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>アンケートフォーム</title>
-    <link rel="stylesheet" href="style.css">
+    <title>アンケート</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background-color: #f9f9f9; }
+        .container { max-width: 500px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
+        label { font-weight: bold; display: block; margin: 10px 0; }
+        input[type="radio"] { margin-right: 10px; }
+        button { background-color: #28a745; color: white; padding: 10px; border: none; border-radius: 4px; cursor: pointer; width: 100%; margin-top: 10px; }
+        button:hover { background-color: #218838; }
+    </style>
 </head>
 <body>
     <div class="container">
         <h2>今日のアンケート</h2>
-        <p id="todayTopic">お題がここに表示されます</p>
+        <p id="todayTopic">お題: あなたの好きな色は？</p>
         <form id="surveyForm">
-            <label><input type="radio" name="answer" value="選択肢1"> 選択肢1</label><br>
-            <label><input type="radio" name="answer" value="選択肢2"> 選択肢2</label><br>
-            <label><input type="radio" name="answer" value="選択肢3"> 選択肢3</label><br>
-            <button type="button" id="submitButton" onclick="submitSurvey()">送信</button>
-            <p id="voteMessage" style="color: red;"></p> <!-- ここに投票済みメッセージを表示 -->
+            <label><input type="radio" name="answer" value="赤"> 赤</label>
+            <label><input type="radio" name="answer" value="青"> 青</label>
+            <label><input type="radio" name="answer" value="緑"> 緑</label>
+            <button type="button" onclick="submitSurvey()">送信</button>
         </form>
     </div>
-    <script src="script.js"></script>
+
+    <script>
+        function submitSurvey() {
+            const selectedAnswer = document.querySelector('input[name="answer"]:checked');
+            if (!selectedAnswer) {
+                alert('1つの選択肢を選んでください');
+                return;
+            }
+
+            let results = JSON.parse(localStorage.getItem("surveyResults")) || { "赤": 0, "青": 0, "緑": 0 };
+            results[selectedAnswer.value]++;
+
+            localStorage.setItem("surveyResults", JSON.stringify(results));
+
+            alert('アンケートが送信されました');
+            document.getElementById('surveyForm').reset();
+        }
+    </script>
 </body>
 </html>
