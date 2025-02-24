@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>アンケートフォーム</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>今日のアンケート</h2>
+        <p id="todayTopic">お題がここに表示されます</p>
+        <form id="surveyForm">
+            <label><input type="radio" name="answer" value="選択肢1"> 選択肢1</label><br>
+            <label><input type="radio" name="answer" value="選択肢2"> 選択肢2</label><br>
+            <label><input type="radio" name="answer" value="選択肢3"> 選択肢3</label><br>
+            <button type="button" id="submitButton" onclick="submitSurvey()">送信</button>
+            <p id="voteMessage" style="color: red;"></p> <!-- ここに投票済みメッセージを表示 -->
+        </form>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
