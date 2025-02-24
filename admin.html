@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>アンケート結果</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="container">
         <h2>アンケート結果</h2>
@@ -15,6 +17,19 @@
             <li>選択肢3: <span id="count3">0</span> 票</li>
         </ul>
     </div>
-    <script src="script.js"></script>
+    <script src="script.js">
+        window.onload = function () {
+            let storedResults = localStorage.getItem("surveyResults");
+            if (storedResults) {
+                let results = JSON.parse(storedResults);
+                console.log("管理者ページで取得:", results);
+                updateAdminPanel(results);
+            } else {
+                console.log("管理者ページでデータが見つかりません。");
+            }
+        };
+
+    </script>
 </body>
+
 </html>
