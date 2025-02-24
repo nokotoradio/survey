@@ -41,6 +41,30 @@
             alert('アンケートが送信されました');
             document.getElementById('surveyForm').reset();
         }
+
+
+    function updateAdminPanel(results) {
+        const resultList = document.getElementById('resultList');
+        resultList.innerHTML = '';
+
+        Object.keys(results).forEach(choice => {
+            const li = document.createElement('li');
+            li.textContent = `${choice}: ${results[choice]} 票`;
+            resultList.appendChild(li);
+        });
+    }
+
+    window.onload = function() {
+        let storedResults = localStorage.getItem("surveyResults");
+        if (storedResults) {
+            let results = JSON.parse(storedResults);
+            console.log("管理者ページで取得:", results);
+            updateAdminPanel(results);
+        } else {
+            console.log("管理者ページでデータが見つかりません。");
+        }
+    };
+
     </script>
 </body>
 </html>
