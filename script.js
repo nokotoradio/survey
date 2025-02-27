@@ -13,21 +13,18 @@ document.addEventListener('DOMContentLoaded', function() {
     banana: 0
   };
 
-  // Enterキーで送信されるのを防ぐ
   surveyForm.addEventListener('keydown', function(event) {
     if (event.key === 'Enter') {
       event.preventDefault();
     }
   });
 
-  // 「その他の入力ボックス」に入力があると「その他」のラジオボタンを選択
   otherTextInput.addEventListener('input', function() {
     if (otherTextInput.value.trim() !== '') {
       otherRadio.checked = true;
     }
   });
 
-  // 既存のラジオボタンを選択し直したら「その他の入力ボックス」をクリア
   radioButtons.forEach(radio => {
     radio.addEventListener('change', function() {
       if (this !== otherRadio) {
@@ -47,7 +44,6 @@ document.addEventListener('DOMContentLoaded', function() {
       if (!responses[otherText]) {
         responses[otherText] = 0;
 
-        // 新しいラジオボタンを作成
         const newRadio = document.createElement('input');
         newRadio.type = 'radio';
         newRadio.name = 'fruit';
@@ -58,7 +54,6 @@ document.addEventListener('DOMContentLoaded', function() {
         newLabel.htmlFor = otherText;
         newLabel.textContent = otherText;
 
-        // フォームに追加
         questionDiv.appendChild(document.createElement('br'));
         questionDiv.appendChild(newRadio);
         questionDiv.appendChild(newLabel);
@@ -68,12 +63,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (selectedOption) {
       responses[selectedOption]++;
+      
+      // === ここでGASへデータを送信 ===
+      fetch("https://script.google.com/a/macros/mro.co.jp/s/AKfycbzEnIyyHyRXm0dkqOtf84JS335HQtVVrH-vmQEuogpJuQ7pEOztuYsOK9Fgomhf2cviig/exec", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ answer: selectedOption })
+      })
+      .then(response => response.text())
+      .then(data => console.log("送信成功: " + data))
+      .catch(error => console.error("送信エラー: ", error));
+      // ============================
+
     }
 
     updateResults();
     surveyForm.reset();
 
-    // ポップアップメッセージを表示
     alert("回答が送信されました");
   });
 
