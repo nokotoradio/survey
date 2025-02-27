@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>アンケートフォーム</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h2>アンケート</h2>
+    <form id="surveyForm">
+      <div class="question">
+        <p>好きな果物は？</p>
+        <input type="radio" name="fruit" value="apple" id="apple">
+        <label for="apple">りんご</label><br>
+        <input type="radio" name="fruit" value="banana" id="banana">
+        <label for="banana">バナナ</label><br>
+        <input type="radio" name="fruit" value="other" id="other">
+        <label for="other">その他（記入欄）</label>
+        <input type="text" id="otherText" placeholder="その他の果物">
+      </div>
+      <button type="submit">送信</button>
+    </form>
+    <div id="results" style="display: none;">
+      <h3>回答者全体の選択状況</h3>
+      <div id="chartContainer" style="height: 300px;"></div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
